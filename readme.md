@@ -1,48 +1,32 @@
-# CRUD Code Test 
-
-Please read each note very carefully!
-Feel free to add/change project structure to a clean architecture to your view.
-and if you are not able to work on FrontEnd project, you can add a Swagger UI
-in a new Front project.
-
-Create a simple CRUD application with ASP NET that implements the below model:
-```
-Customer {
-	Firstname
-	Lastname
-	DateOfBirth
-	PhoneNumber
-	Email
-	BankAccountNumber
-}
-```
-## Practices and patterns (Must):
-
-- [TDD](https://docs.microsoft.com/en-us/visualstudio/test/quick-start-test-driven-development-with-test-explorer?view=vs-2022)
-- [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
-- [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development)
-- [Clean architecture](https://github.com/jasontaylordev/CleanArchitecture)
-- [Clean Code](https://en.wikipedia.org/wiki/SonarQube)
-- [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_separation) pattern ([Event sourcing](https://en.wikipedia.org/wiki/Domain-driven_design#Event_sourcing)).
-- Clean git commits that shows your work progress.
-
-### Validations (Must)
-
-- During Create; validate the phone number to be a valid *mobile* number only (Please use this library [Google LibPhoneNumber](https://github.com/google/libphonenumber) to validate number at the backend).
-
-- A Valid email and a valid bank account number must be checked before submitting the form.
-
-- Customers must be unique in database: By `Firstname`, `Lastname` and `DateOfBirth`.
-
-- Email must be unique in the database.
-
-### Storage (Must)
-
-- Store the phone number in a database with minimized space storage (choose `varchar`/`string`, or `ulong` whichever store less space).
-
-### Delivery (Must)
-- Please clone this repository in a new github repository in private mode and share with ID: `mason-chase` in private mode on github.com, make sure you do not erase my commits and then create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (code review).
-
-## Nice to do:
-- Blazor Web.
-- Docker-compose project that loads database service automatically which `docker-compose up`
+I divided the source you sent into two parts, src and test. I didn't have enough time for the test part, and if the team gives me time, I have to study and I think I will do it in 2 days. Considering that I have never dealt with any of (TDD/DDD/BDD/CleanArc),It took me 2 days to study and implement them.
+## Practices and patterns
+CleanArchitecture- DDD- CQRS – Dapper – DI
+## Src Contains:
+## Mc2.CrudTest.Presentation.API : 
+-CustomerController that sending requests via MediatR to Application layer. 
+-appsettings.json for sqlconnection
+-Program.cs
+I added a Swagger UI in API Part instead of working on Front Project(Client):
+https://localhost:7045/swagger/index.html
+## Mc2.CrudTest.Presentation.Application :
+	-Commands Folder for Create/Delete/Edit Customer 
+-Handlers (Command and Query Handlers)
+-Mapper
+-Queries For GetAll/GetById/GetByEmail
+-Response for CustomerResponse 
+## Mc2.CrudTest.Presentation.Client : 
+Not Worked(I add SwaggerUI)
+## Mc2.CrudTest.Presentation.Core: 
+-DefineAttributes : I use the Google LibPhoneNumber library  to validate phonenumber at the backend , So this folder contains PhoneNumberAttribute.cs for Defining Attribute [PhoneNumber]
+-Entities, FluentAPIConfigurations: 
+Note: Due to the dead time, I use Annotation and fluentAPI together but in future I    should to have only fluentApI and moving some Annotation to fluentApi.
+- Repositories : that contains Command and Query Interfaces
+## Mc2.CrudTest.Presentation.Infrastructure
+-Data: For CrudTestDbContext.cs and DbConnector for connect and create database.
+-Migrations
+- Repository
+Note1: Although I followed all the Validations but AddAsync Method ignore them so First, I add this package https://github.com/efcore/EFCore.CheckConstraints and then solve the problem. But Expression had some bugs for data input, So Due to the dead time,I uninstall this package and comment this code in CrudTestDbContext for now. 
+//For check constraints Enabled by EFCore.CheckConstraints package:
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //=> optionsBuilder
+        //    .UseValidationCheckConstraints();
