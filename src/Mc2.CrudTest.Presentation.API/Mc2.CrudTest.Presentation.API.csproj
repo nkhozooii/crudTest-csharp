@@ -30,9 +30,5 @@
     <ProjectReference Include="..\Mc2.CrudTest.Presentation.Infrastructure\Mc2.CrudTest.Presentation.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Db\" />
-  </ItemGroup>
-
 
 </Project>
