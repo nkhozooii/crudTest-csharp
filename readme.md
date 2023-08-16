@@ -1,5 +1,4 @@
-I divided the source you sent into two parts: <br />
-src and test. <br />
+I divided the source you sent into two parts : src and test <br />
 I didn't have enough time for the test part, and if the team gives me time, I have to study and I think I will do it in 2 days. Considering that I have never dealt with any of (TDD/DDD/BDD/CleanArc),It took me 2 days to study and implement them.
 ## Practices and patterns
 CleanArchitecture - DDD - CQRS - Dapper - DI
