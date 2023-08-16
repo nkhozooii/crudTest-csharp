@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Presentation.Application.Mapper
 {
-    public class OrderingMappingProfile : Profile
+    public class MappingProfile : Profile
     {
-        public OrderingMappingProfile()
+        public MappingProfile()
         {
             CreateMap<Customer, CustomerResponse>().ReverseMap();
             CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
