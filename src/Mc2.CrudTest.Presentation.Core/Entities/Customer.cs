@@ -23,6 +23,7 @@ namespace Mc2.CrudTest.Presentation.Core.Entities
         public DateTime? DateOfBirth { get; set; }
         [Column(TypeName = "VARCHAR")]
         [MaxLength(20)]
+        [PhoneNumber]
         public virtual string PhoneNumber { get; set; }
 
         [Display(Name = "Email address")]
