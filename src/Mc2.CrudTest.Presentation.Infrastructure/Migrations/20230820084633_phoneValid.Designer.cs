@@ -4,6 +4,7 @@ using Mc2.CrudTest.Presentation.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
 {
     [DbContext(typeof(CrudTestDbContext))]
-    partial class CrudTestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230820084633_phoneValid")]
+    partial class phoneValid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +44,7 @@ namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
                         .HasColumnType("Date");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -68,12 +72,7 @@ namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[DateOfBirth] IS NOT NULL");
 
-                    b.ToTable("Customers", t =>
-                        {
-                            t.HasCheckConstraint("CK_Customers_BankAccountNumber_RegularExpression", "dbo.RegexMatch('^[0-9]{9,18}$', [BankAccountNumber])");
-
-                            t.HasCheckConstraint("CK_Customers_Email_EmailAddress", "dbo.RegexMatch('^[^@]+@[^@]+$', [Email])");
-                        });
+                    b.ToTable("Customers");
                 });
 #pragma warning restore 612, 618
         }

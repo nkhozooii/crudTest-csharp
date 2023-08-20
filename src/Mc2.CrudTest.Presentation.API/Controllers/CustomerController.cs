@@ -30,7 +30,7 @@ namespace Mc2.CrudTest.Presentation.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<Customer> Get(int id)
         {
-            return await _mediator.Send(new GetCustomerByIdQuery(id));
+             return await _mediator.Send(new GetCustomerByIdQuery(id));
         }
 
         [HttpGet("email")]

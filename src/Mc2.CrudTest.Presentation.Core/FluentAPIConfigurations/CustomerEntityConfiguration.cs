@@ -22,7 +22,7 @@ namespace Mc2.CrudTest.Presentation.Core.FluentAPIConfigurations
                     .HasMaxLength(100).IsRequired(true);
             builder.Property(p => p.LastName)
                    .HasMaxLength(150).IsRequired(true);
-           
+
         }
     }
 }

@@ -4,6 +4,7 @@ using Mc2.CrudTest.Presentation.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
 {
     [DbContext(typeof(CrudTestDbContext))]
-    partial class CrudTestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230820105340_removeEmailRequiredForTest")]
+    partial class removeEmailRequiredForTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

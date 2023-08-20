@@ -7,11 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Mc2.CrudTest.Presentation.APITest\**" />
+      <EmbeddedResource Remove="Mc2.CrudTest.Presentation.APITest\**" />
+      <None Remove="Mc2.CrudTest.Presentation.APITest\**" />
+      <SpecFlowFeatureFiles Remove="Mc2.CrudTest.Presentation.APITest\**" />
+      <SpecFlowObsoleteCodeBehindFiles Remove="Mc2.CrudTest.Presentation.APITest\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Using Include="TechTalk.SpecFlow" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+        <PackageReference Include="Moq" Version="4.20.69" />
         <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
         <PackageReference Include="SpecFlow.NUnit" Version="3.9.22" />
         <PackageReference Include="nunit" Version="3.13.2" />
@@ -20,6 +29,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Mc2.CrudTest.AcceptanceTest\Mc2.CrudTest.AcceptanceTest.csproj" />
+      <ProjectReference Include="..\..\src\Mc2.CrudTest.Presentation.API\Mc2.CrudTest.Presentation.API.csproj" />
+      <ProjectReference Include="..\..\src\Mc2.CrudTest.Presentation.Core\Mc2.CrudTest.Presentation.Core.csproj" />
     </ItemGroup>
 
 </Project>

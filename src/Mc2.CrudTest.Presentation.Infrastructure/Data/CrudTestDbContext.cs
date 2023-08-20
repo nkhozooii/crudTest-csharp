@@ -24,9 +24,10 @@ namespace Mc2.CrudTest.Presentation.Core
                         .HasIndex(e => new { e.FirstName, e.LastName,e.DateOfBirth }).IsUnique();
             modelBuilder.ApplyConfiguration(new CustomerEntityConfiguration());
         }
-         //For check constraints Enabled by EFCore.CheckConstraints package:
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //=> optionsBuilder
-        //    .UseValidationCheckConstraints();
+        //For check constraints Enabled by EFCore.CheckConstraints package:
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseAllCheckConstraints();
+           // .UseValidationCheckConstraints();
+        
     }
 }

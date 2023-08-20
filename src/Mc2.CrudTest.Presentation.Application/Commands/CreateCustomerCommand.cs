@@ -12,7 +12,7 @@ namespace Mc2.CrudTest.Presentation.Application.Commands
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }
         public string? BankAccountNumber { get; set; }
@@ -20,7 +20,7 @@ namespace Mc2.CrudTest.Presentation.Application.Commands
 
         public CreateCustomerCommand()
         {
-            this.CreatedDate = DateTime.Now;
+            this.CreatedDate = DateTime.Now;         
         }
     }
 }
