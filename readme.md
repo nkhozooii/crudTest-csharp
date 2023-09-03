@@ -20,7 +20,7 @@ Not Worked(I add SwaggerUI)<br />
 -DefineAttributes : I use the Google LibPhoneNumber library  to validate phonenumber at the backend , So this folder contains PhoneNumberAttribute.cs for Defining Attribute [PhoneNumber]<br />
 -Entities<br />
 -FluentAPIConfigurationsthat contains CustomerEntityConfiguration.cs for Data Annotaion <br />
--Validators that contains CustomerValidator.cs-->that use of FluentValidation.AspNetCore package for validation<br />
+-Validators that contains CustomerValidator.cs that use of FluentValidation.AspNetCore package for validation<br />
 -Repositories : that contains Command and Query Interfaces<br />
 ## Mc2.CrudTest.Presentation.Infrastructure
 -Data: For CrudTestDbContext.cs and DbConnector for connect and create database.<br />
