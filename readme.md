@@ -19,8 +19,8 @@ Not Worked(I add SwaggerUI)<br />
 ## Mc2.CrudTest.Presentation.Core: 
 -DefineAttributes : I use the Google LibPhoneNumber library  to validate phonenumber at the backend , So this folder contains PhoneNumberAttribute.cs for Defining Attribute [PhoneNumber]<br />
 -Entities<br />
--FluentAPIConfigurations:-->CustomerEntityConfiguration.cs for Data Annotaion <br />
--Validators-->CustomerValidator.cs-->that use of FluentValidation.AspNetCore package for validation<br />
+-FluentAPIConfigurationsthat contains CustomerEntityConfiguration.cs for Data Annotaion <br />
+-Validators that contains CustomerValidator.cs-->that use of FluentValidation.AspNetCore package for validation<br />
 -Repositories : that contains Command and Query Interfaces<br />
 ## Mc2.CrudTest.Presentation.Infrastructure
 -Data: For CrudTestDbContext.cs and DbConnector for connect and create database.<br />
