@@ -1,9 +1,13 @@
-﻿using Mc2.CrudTest.Presentation.Application.Commands;
+﻿using Azure;
+using FluentValidation.Results;
+using Mc2.CrudTest.Presentation.Application.Commands;
 using Mc2.CrudTest.Presentation.Application.Mapper;
 using Mc2.CrudTest.Presentation.Application.Response;
 using Mc2.CrudTest.Presentation.Core.Entities;
 using Mc2.CrudTest.Presentation.Core.Repositories.Command;
+using Mc2.CrudTest.Presentation.Core.Validators;
 using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +31,30 @@ namespace Mc2.CrudTest.Presentation.Application.Handlers.CommandHandler
             if (customerEntity is null)
             {
                 throw new ApplicationException("There is a problem in mapper");
-            }           
-            var newCustomer = await _customerCommandRepository.AddAsync(customerEntity);
-            var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(newCustomer);
-            return customerResponse;
+            }
+            CustomerValidator customerValidator = new();
+            List<string> ValidationMessages = new List<string>();
+            var validationResult = customerValidator.Validate(customerEntity);
+            if (!validationResult.IsValid)
+            {
+                var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(customerEntity);
+                customerResponse.Id = 0;
+                customerResponse.IsValid = false;
+                foreach (ValidationFailure failure in validationResult.Errors)
+                {
+                    ValidationMessages.Add(failure.ErrorMessage);
+                }
+                customerResponse.ValidationMessages = ValidationMessages;
+                 return customerResponse;
+            }
+            else
+            {
+
+                var newCustomer = await _customerCommandRepository.AddAsync(customerEntity);
+                var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(newCustomer);
+                return customerResponse;
+            }
+
         }
     }
 }

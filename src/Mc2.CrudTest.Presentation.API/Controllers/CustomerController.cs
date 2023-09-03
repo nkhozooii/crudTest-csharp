@@ -2,6 +2,7 @@
 using Mc2.CrudTest.Presentation.Application.Queries;
 using Mc2.CrudTest.Presentation.Application.Response;
 using Mc2.CrudTest.Presentation.Core.Entities;
+using Mc2.CrudTest.Presentation.Core.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

@@ -9,7 +9,7 @@ namespace Mc2.CrudTest.Presentation.Application.Commands
 {
     public class DeleteCustomerCommand : IRequest<String>
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public DeleteCustomerCommand(int Id)
         {

@@ -41,6 +41,7 @@ namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
                         .HasColumnType("Date");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -64,16 +65,14 @@ namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("FirstName", "LastName", "DateOfBirth")
                         .IsUnique()
                         .HasFilter("[DateOfBirth] IS NOT NULL");
 
-                    b.ToTable("Customers", t =>
-                        {
-                            t.HasCheckConstraint("CK_Customers_BankAccountNumber_RegularExpression", "dbo.RegexMatch('^[0-9]{9,18}$', [BankAccountNumber])");
-
-                            t.HasCheckConstraint("CK_Customers_Email_EmailAddress", "dbo.RegexMatch('^[^@]+@[^@]+$', [Email])");
-                        });
+                    b.ToTable("Customers");
                 });
 #pragma warning restore 612, 618
         }

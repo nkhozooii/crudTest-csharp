@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Mc2.CrudTest.Presentation.Application.Response
 {
     // Customer response or DTO class
-    public class CustomerResponse
+    public class CustomerResponse:ResponseModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

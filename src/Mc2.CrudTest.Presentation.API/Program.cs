@@ -11,37 +11,51 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Mc2.CrudTest.Presentation.Core;
+using FluentValidation.AspNetCore;
+using Microsoft.Extensions.Options;
+using Mc2.CrudTest.Presentation.Core.Validators;
+using FluentValidation;
+using System;
+using Mc2.CrudTest.Presentation.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mc2.CrudTest.Presentation
 {
     public class Program
     {
+       
         public static void Main(string[] args)
         {
-           // var AllowOrigins = "_myAllowOrigins";
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy(AllowOrigins,
-            //        policy =>
-            //        {
-            //            policy.AllowAnyOrigin();
-            //        });
-            //});
-//
+           
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
-
-            //
             builder.Services.AddControllers();
+            //FluentValidation Registeration:
+            // deprecated
+            //.AddFluentValidation(s => 
+            //{ 
+            //    s.RegisterValidatorsFromAssemblyContaining<Program>(); 
+            //    s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+
+            //});
+            //.AddFluentValidation(options =>
+            //{
+            //    options.ImplicitlyValidateChildProperties = true;
+            //    //options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            //});
+
+            //After migration 
+            //builder.Services.AddFluentValidationAutoValidation();
+            //builder.Services.AddFluentValidationClientsideAdapters();
+            builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
 
             string connectionString = builder.Configuration.GetConnectionString("SqlConnection");
             //register DbContext
             builder.Services.AddDbContext<CrudTestDbContext>(options => {
                 options.UseSqlServer(connectionString);
-            });
+            }); 
+            
 
             builder.Services.AddSwaggerGen(c =>
             {
@@ -50,14 +64,12 @@ namespace Mc2.CrudTest.Presentation
 
             // Register dependencies
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
-            //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateCustomerHandler>());
             builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
             builder.Services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
             builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
             builder.Services.AddTransient<Core.Repositories.Command.ICustomerCommandRepository, CustomerCommandRepository>();
-            //
-
+            builder.Services.AddSingleton<IValidator<Customer>, CustomerValidator>();
 
             var app = builder.Build();
 
@@ -85,7 +97,6 @@ namespace Mc2.CrudTest.Presentation
 
 
             app.MapRazorPages();
-           // app.UseCors(AllowOrigins);
             app.UseAuthorization();
             app.MapControllers();
             app.MapFallbackToFile("index.html");

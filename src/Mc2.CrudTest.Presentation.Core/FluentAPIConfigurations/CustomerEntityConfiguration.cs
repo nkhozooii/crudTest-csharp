@@ -1,14 +1,7 @@
-﻿using Mc2.CrudTest.Presentation.Core.DefineAttributes;
-using Mc2.CrudTest.Presentation.Core.Entities;
+﻿using Mc2.CrudTest.Presentation.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+
 
 namespace Mc2.CrudTest.Presentation.Core.FluentAPIConfigurations
 {
@@ -16,12 +9,21 @@ namespace Mc2.CrudTest.Presentation.Core.FluentAPIConfigurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            //we can remove all anotation and move it to here(I only set email attribute here)
-            //For Example:
+            builder.HasIndex(e => new { e.FirstName, e.LastName, e.DateOfBirth }).IsUnique();
+            builder.HasIndex(e => new { e.Email }).IsUnique();
             builder.Property(p => p.FirstName)
                     .HasMaxLength(100).IsRequired(true);
             builder.Property(p => p.LastName)
                    .HasMaxLength(150).IsRequired(true);
+            builder.Property(p => p.DateOfBirth)
+             .HasColumnType("Date");
+            builder.Property(p => p.PhoneNumber)
+                        .HasColumnType("VARCHAR").HasMaxLength(20);
+            builder.Property(p => p.Email)
+                   .HasMaxLength(50).IsRequired(true);
+            builder.Property(p => p.BankAccountNumber)
+                       .HasMaxLength(25);
+            
 
         }
     }

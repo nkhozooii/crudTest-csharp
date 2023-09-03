@@ -20,7 +20,7 @@ namespace Mc2.CrudTest.Presentation.Application.Handlers.QueryHandlers
         public async Task<Customer> Handle(GetCustomerByEmailQuery request, CancellationToken cancellationToken)
         {
             var customers = await _mediator.Send(new GetAllCustomerQuery());
-            var selectedCustomer = customers.FirstOrDefault(x => x.Email.ToLower().Contains(request.Email.ToLower()));
+            var selectedCustomer = customers.FirstOrDefault(x => x.Email.ToLower().Equals(request.Email.ToLower()));
             return selectedCustomer;
         }
     }

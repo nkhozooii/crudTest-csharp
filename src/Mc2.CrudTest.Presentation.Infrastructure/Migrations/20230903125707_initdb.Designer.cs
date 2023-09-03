@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
 {
     [DbContext(typeof(CrudTestDbContext))]
-    [Migration("20230816013706_initDb")]
-    partial class initDb
+    [Migration("20230903125707_initdb")]
+    partial class initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,10 +63,13 @@ namespace Mc2.CrudTest.Presentation.Infrastructure.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(12)
+                        .HasMaxLength(20)
                         .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("FirstName", "LastName", "DateOfBirth")
                         .IsUnique()

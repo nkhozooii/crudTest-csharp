@@ -1,9 +1,11 @@
-﻿using Mc2.CrudTest.Presentation.Application.Commands;
+﻿using FluentValidation.Results;
+using Mc2.CrudTest.Presentation.Application.Commands;
 using Mc2.CrudTest.Presentation.Application.Mapper;
 using Mc2.CrudTest.Presentation.Application.Response;
 using Mc2.CrudTest.Presentation.Core.Entities;
 using Mc2.CrudTest.Presentation.Core.Repositories.Command;
 using Mc2.CrudTest.Presentation.Core.Repositories.Query;
+using Mc2.CrudTest.Presentation.Core.Validators;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -30,20 +32,37 @@ namespace Mc2.CrudTest.Presentation.Application.Handlers.CommandHandler
             {
                 throw new ApplicationException("There is a problem in mapper");
             }
-
-            try
+            CustomerValidator customerValidator = new();
+            List<string> ValidationMessages = new List<string>();
+            var validationResult = customerValidator.Validate(customerEntity);
+            if (!validationResult.IsValid)
             {
-                await _customerCommandRepository.UpdateAsync(customerEntity);
+                var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(customerEntity);
+                customerResponse.Id =request.Id;
+                customerResponse.IsValid = false;
+                foreach (ValidationFailure failure in validationResult.Errors)
+                {
+                    ValidationMessages.Add(failure.ErrorMessage);
+                }
+                customerResponse.ValidationMessages = ValidationMessages;
+                return customerResponse;
             }
-            catch (Exception exp)
+            else
             {
-                throw new ApplicationException(exp.Message);
+                try
+                {
+                    await _customerCommandRepository.UpdateAsync(customerEntity);
+                }
+                catch (Exception exp)
+                {
+                    throw new ApplicationException(exp.Message);
+                }
+
+                var modifiedCustomer = await _customerQueryRepository.GetByIdAsync(request.Id);
+                var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(modifiedCustomer);
+
+                return customerResponse;
             }
-
-            var modifiedCustomer = await _customerQueryRepository.GetByIdAsync(request.Id);
-            var customerResponse = CustomerMapper.Mapper.Map<CustomerResponse>(modifiedCustomer);
-
-            return customerResponse;
         }
     }
 }

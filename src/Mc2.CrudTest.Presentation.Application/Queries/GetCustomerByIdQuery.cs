@@ -11,7 +11,7 @@ namespace Mc2.CrudTest.Presentation.Application.Queries
     // Customer GetCustomerByIdQuery with Customer response
     public class GetCustomerByIdQuery : IRequest<Customer>
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public GetCustomerByIdQuery(int Id)
         {
