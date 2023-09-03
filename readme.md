@@ -21,11 +21,11 @@ Not Worked(I add SwaggerUI)<br />
 -Entities<br />
 -FluentAPIConfigurations:-->CustomerEntityConfiguration.cs for Data Annotaion <br />
 -Validators-->CustomerValidator.cs-->that use of FluentValidation.AspNetCore package for validation<br />
-- Repositories : that contains Command and Query Interfaces<br />
+-Repositories : that contains Command and Query Interfaces<br />
 ## Mc2.CrudTest.Presentation.Infrastructure
 -Data: For CrudTestDbContext.cs and DbConnector for connect and create database.<br />
 -Migrations<br />
-- Repository<br />
+-Repository<br />
 ## Test Part Contains:
 ## Mc2.CrudTest.AcceptanceTest :
 -Mc2.CrudTest.Presentation.ApplicationTest: for command and Query handlers tests.<br />
