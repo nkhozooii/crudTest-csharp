@@ -11,7 +11,7 @@ namespace Mc2.CrudTest.Presentation.Application.Queries
     // Customer GetCustomerByEmailQuery with Customer response
     public class GetCustomerByEmailQuery : IRequest<Customer>
     {
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
         public GetCustomerByEmailQuery(string email)
         {
